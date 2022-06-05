@@ -71,12 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
               : const Scaffold(
-                  body: Padding(
-                    padding: EdgeInsets.only(top: 64),
-                    child: MainScreenWrapper(
-                      weather: state.weather,
-                      hourlyWeather: state.hourlyWeather,
-                    ),
+                  body: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
         },
