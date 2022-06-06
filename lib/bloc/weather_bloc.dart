@@ -9,11 +9,12 @@ import 'package:weather/states/weather_state.dart';
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final String cityName;
 
-  WeatherBloc(this.cityName) : super(null) {
-    add(WeatherRequested(city: cityName));
+  WeatherBloc(this.cityName, WeatherState initState) : super(initState) {
+    add(WeatherRequested(
+      city: cityName.toString(),
+    ));
   }
 
-  @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is WeatherRequested) {
       yield WeatherLoadInProgress();

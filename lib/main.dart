@@ -4,8 +4,6 @@ import 'package:weather/bloc/weather_bloc.dart';
 import 'package:weather/components/main_screen_wrapper.dart';
 import 'package:weather/states/weather_state.dart';
 
-import 'events/weather_event.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -37,7 +35,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherBloc('Moscow'),
+      create: (context) => WeatherBloc(
+        'Moscow',
+      ),
       child: BlocBuilder<WeatherBloc, WeatherState>(
         builder: (context, state) {
           return state is WeatherLoadSuccess
@@ -48,15 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     actions: [
                       IconButton(
                         onPressed: () {
-                          showSearch(
-                            context: context,
-                            delegate: MySearchDelegate(
-                              (query) {
-                                BlocProvider.of<WeatherBloc>(context)
-                                    .add(WeatherRequested(city: query));
-                              },
-                            ),
-                          );
+                          // showSearch(
+                          //   context: context,
+                          //   delegate: MySearchDelegate(
+                          //     (query) {
+                          //       BlocProvider.of<WeatherBloc>(context)
+                          //           .add(WeatherRequested(city: query));
+                          //     },
+                          //   ),
+                          // );
                         },
                         icon: const Icon(Icons.search_rounded),
                       ),
