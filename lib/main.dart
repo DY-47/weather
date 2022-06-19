@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/bloc/weather_bloc.dart';
 import 'package:weather/components/main_screen_wrapper.dart';
-import 'package:weather/states/weather_state.dart';
+import 'package:weather/cubit/counter_cubit.dart';
+import 'package:weather/services/weather_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,58 +24,56 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WeatherBloc(
-        'Moscow',
-      ),
-      child: BlocBuilder<WeatherBloc, WeatherState>(
-        builder: (context, state) {
-          return state is WeatherLoadSuccess
-              ? Scaffold(
-                  appBar: AppBar(
-                    elevation: 0,
-                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          // showSearch(
-                          //   context: context,
-                          //   delegate: MySearchDelegate(
-                          //     (query) {
-                          //       BlocProvider.of<WeatherBloc>(context)
-                          //           .add(WeatherRequested(city: query));
-                          //     },
-                          //   ),
-                          // );
-                        },
-                        icon: const Icon(Icons.search_rounded),
-                      ),
-                    ],
-                  ),
-                  body: Padding(
-                    padding: const EdgeInsets.only(top: 64),
-                    child: MainScreenWrapper(
-                      weather: state.weather,
-                      hourlyWeather: state.hourlyWeather,
+    return RepositoryProvider(
+      create: (context) => WeatherService(),
+      child: BlocProvider(
+        create: (context) => CounterCubit(weatherService: WeatherService()),
+        child: BlocBuilder<CounterCubit, CounterState>(
+          builder: (context, state) {
+            if (state.status == CounterStatus.initial) {
+              context.read<CounterCubit>().fetch();
+            }
+            if (state.status == CounterStatus.loaded) {
+              return Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        // showSearch(
+                        //   context: context,
+                        //   delegate: MySearchDelegate(
+                        //     (query) {
+                        //       BlocProvider.of<WeatherBloc>(context)
+                        //           .add(WeatherRequested(city: query));
+                        //     },
+                        //   ),
+                        // );
+                      },
+                      icon: const Icon(Icons.search_rounded),
                     ),
+                  ],
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 64),
+                  child: MainScreenWrapper(
+                    weather: state.weather,
+                    // hourlyWeather: state.hourlyWeather,
                   ),
-                )
-              : const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-        },
+                ),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

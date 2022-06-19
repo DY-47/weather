@@ -6,19 +6,18 @@ class WeatherService {
   static const String _apiKey = '26af2b6111d7488f6b1ce3f883e4294e';
 
   //метод получения текущей погоды
-  static Future<Weather> fetchCurrentWeather({
-    query,
-    String lat = '',
-    String lon = '',
+  Future<Weather> fetchCurrentWeather({
+    required String lat,
+    required String lon,
   }) async {
     var url =
-        'http://api.openweathermap.org/data/2.5/weather?q=$query&lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
-    final response = await http.post(Uri.parse(url));
+        'http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$_apiKey';
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed ti load weather');
+      return throw Exception('Failed ti load weather');
     }
   }
 
