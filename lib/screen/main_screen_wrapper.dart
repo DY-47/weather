@@ -1,7 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:weather/models/weather_model.dart';
 
-import 'weather_card.dart';
+// Project imports:
+import 'package:weather/models/weather_model.dart';
+import 'package:weather/widgets/weather_card.dart';
 
 class MainScreenWrapper extends StatelessWidget {
   final Weather? weather;

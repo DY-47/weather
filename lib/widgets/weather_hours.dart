@@ -1,6 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:weather/models/weather_model.dart';
 
+// Project imports:
+import 'package:weather/models/weather_model.dart';
 import 'weather_card.dart';
 
 class HourlyWeather extends StatelessWidget {

@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/components/main_screen_wrapper.dart';
+import 'package:weather/api/weather_service.dart';
+
+// Project imports:
+import 'package:weather/screen/main_screen_wrapper.dart';
 import 'package:weather/cubit/counter_cubit.dart';
-import 'package:weather/services/weather_service.dart';
 
 void main() {
   runApp(const MyApp());

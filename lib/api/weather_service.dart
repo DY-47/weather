@@ -1,6 +1,11 @@
+// Dart imports:
 import 'dart:convert';
-import 'package:weather/models/weather_model.dart';
+
+// Package imports:
 import 'package:http/http.dart' as http;
+
+// Project imports:
+import 'package:weather/models/weather_model.dart';
 
 class WeatherService {
   static const String _apiKey = '26af2b6111d7488f6b1ce3f883e4294e';
