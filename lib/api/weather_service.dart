@@ -12,11 +12,10 @@ class WeatherService {
 
   //метод получения текущей погоды
   Future<Weather> fetchCurrentWeather({
-    required String lat,
-    required String lon,
+    required String city,
   }) async {
     var url =
-        'http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$_apiKey';
+        'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$_apiKey&units=metric';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -27,13 +26,11 @@ class WeatherService {
   }
 
   //метод получения погоды по часам
-  static Future<List<Weather>> fetchHourlyWeather({
-    required String query,
-    String lat = '',
-    String lon = '',
+  Future<List<Weather>> fetchHourlyWeather({
+    required String city,
   }) async {
     var url =
-        'http://api.openweathermap.org/data/2.5/forecast?q=$query&lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
+        'http://api.openweathermap.org/data/2.5/forecast?q=$city&appid=$_apiKey&units=metric';
     final response = await http.post(Uri.parse(url));
 
     if (response.statusCode == 200) {

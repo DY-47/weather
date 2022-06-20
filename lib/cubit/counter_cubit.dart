@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:bloc/bloc.dart';
-import 'package:weather/api/weather_service.dart';
 
 // Project imports:
+import 'package:weather/api/weather_service.dart';
 import 'package:weather/models/weather_model.dart';
 
 part 'counter_state.dart';
@@ -16,12 +16,15 @@ class CounterCubit extends Cubit<CounterState> {
 
   Future fetch() async {
     emit(state.copyWith(status: CounterStatus.loading));
-    final response =
-        await _weatherService.fetchCurrentWeather(lon: '139', lat: '35');
+    final response = await _weatherService.fetchCurrentWeather(city: 'Moscow');
+
+    final responseHourly =
+        await _weatherService.fetchHourlyWeather(city: 'Moscow');
 
     emit(state.copyWith(
       status: CounterStatus.loaded,
       weather: response,
+      hourlyWeather: responseHourly,
     ));
   }
 }

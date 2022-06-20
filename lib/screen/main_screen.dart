@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:weather/models/weather_model.dart';
 import 'package:weather/widgets/weather_card.dart';
+import '../widgets/weather_hours.dart';
 
 class MainScreenWrapper extends StatelessWidget {
   final Weather? weather;
-  // final List<Weather> hourlyWeather;
+  final List<Weather>? hourlyWeather;
 
   const MainScreenWrapper({
     Key? key,
     required this.weather,
-    // required this.hourlyWeather,
+    required this.hourlyWeather,
   }) : super(key: key);
 
   @override
@@ -36,7 +37,7 @@ class MainScreenWrapper extends StatelessWidget {
           iconScale: 1,
         ),
         const Spacer(),
-        // HourlyWeather(hourlyWeather: hourlyWeather)
+        HourlyWeather(hourlyWeather: hourlyWeather!)
       ],
     );
   }

@@ -14,7 +14,7 @@ class WeatherCard extends StatelessWidget {
     required this.temperature,
     required this.iconCode,
     required this.temperatureFontSize,
-    this.iconScale = 0.0,
+    this.iconScale = 1,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,6 @@ class WeatherCard extends StatelessWidget {
             Text(title),
             Image.network(
               "http://openweathermap.org/img/wn/$iconCode@2x.png",
-              scale: iconScale,
             ),
             Text(
               temperature.toString(),
