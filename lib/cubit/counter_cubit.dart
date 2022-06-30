@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 
 // Project imports:
-import 'package:weather/api/weather_service.dart';
 import 'package:weather/models/weather_model.dart';
+import 'package:weather/repositories/weather_service.dart';
 
 part 'counter_state.dart';
 

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/repositories/weather_service.dart';
+import 'package:weather/theme/colors.dart';
 
 // Project imports:
-import '/api/weather_service.dart';
 import '/cubit/counter_cubit.dart';
 import '/screen/main_screen.dart';
 
@@ -25,6 +26,7 @@ class MyHomePage extends StatelessWidget {
             }
             if (state.status == CounterStatus.loaded) {
               return Scaffold(
+                backgroundColor: AppColors.background1,
                 appBar: AppBar(
                   elevation: 0,
                   backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
@@ -45,12 +47,16 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.only(top: 64),
-                  child: MainScreenWrapper(
-                    weather: state.weather,
-                    hourlyWeather: state.hourlyWeather!,
-                  ),
+                body: ListView(
+                  children: [
+                    SizedBox(
+                      height: 600,
+                      child: MainScreenWrapper(
+                        weather: state.weather,
+                        hourlyWeather: state.hourlyWeather!,
+                      ),
+                    ),
+                  ],
                 ),
               );
             }
