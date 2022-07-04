@@ -9,6 +9,7 @@ part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
   final WeatherService _weatherService;
+  final String cityName = 'Moscow';
 
   CounterCubit({required WeatherService weatherService})
       : _weatherService = weatherService,
@@ -16,10 +17,10 @@ class CounterCubit extends Cubit<CounterState> {
 
   Future fetch() async {
     emit(state.copyWith(status: CounterStatus.loading));
-    final response = await _weatherService.fetchCurrentWeather(city: 'Moscow');
+    final response = await _weatherService.fetchCurrentWeather(city: cityName);
 
     final responseHourly =
-        await _weatherService.fetchHourlyWeather(city: 'Moscow');
+        await _weatherService.fetchHourlyWeather(city: cityName);
 
     emit(state.copyWith(
       status: CounterStatus.loaded,

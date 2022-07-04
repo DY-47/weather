@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/repositories/weather_service.dart';
+import 'package:weather/screen/cubit/counter_cubit.dart';
 import 'package:weather/theme/colors.dart';
 
 // Project imports:
-import '/cubit/counter_cubit.dart';
-import '/screen/main_screen.dart';
+import '/screen/first_screen.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -18,7 +18,9 @@ class MyHomePage extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => WeatherService(),
       child: BlocProvider(
-        create: (context) => CounterCubit(weatherService: WeatherService()),
+        create: (context) => CounterCubit(
+          weatherService: WeatherService(),
+        ),
         child: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
             if (state.status == CounterStatus.initial) {
