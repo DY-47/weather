@@ -20,23 +20,21 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title),
-            Image.network(
-              "http://openweathermap.org/img/wn/$iconCode@2x.png",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title),
+          Image.network(
+            "http://openweathermap.org/img/wn/$iconCode@2x.png",
+          ),
+          Text(
+            temperature.toString() + '°',
+            style: TextStyle(
+              fontSize: temperatureFontSize,
+              fontWeight: FontWeight.bold,
             ),
-            Text(
-              temperature.toString() + '°',
-              style: TextStyle(
-                fontSize: temperatureFontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
